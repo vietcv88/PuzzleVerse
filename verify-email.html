@@ -83,15 +83,10 @@
       display: none;
     }
 
-    .token-box {
-      margin-top: 18px;
-      padding: 10px 12px;
-      background: #f3f4f6;
-      border-radius: 10px;
-      font-size: 12px;
-      color: #6b7280;
-      word-break: break-all;
-      text-align: left;
+    .sub-text {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #9ca3af;
     }
 
     @keyframes spin {
@@ -107,41 +102,43 @@
     <div class="title" id="title">Verifying your email...</div>
     <div class="spinner" id="spinner"></div>
     <div class="message" id="message">Please wait a moment.</div>
-
     <button id="retryButton" class="btn hidden">Try Again</button>
-
-    <div id="tokenBox" class="token-box hidden"></div>
+    <div class="sub-text" id="subText">You can close this page after verification is complete.</div>
   </div>
 
   <script>
-    const API_BASE_URL = "https://ugk2ue2jfe.execute-api.ap-southeast-1.amazonaws.com/PuzzleAPIs/";
-    const VERIFY_API_URL = API_BASE_URL + "/verification";
+    const VERIFY_API_URL = "https://api.puzzleverse.app/verification";
 
     const titleEl = document.getElementById("title");
     const messageEl = document.getElementById("message");
     const spinnerEl = document.getElementById("spinner");
     const retryButtonEl = document.getElementById("retryButton");
-    const tokenBoxEl = document.getElementById("tokenBox");
+    const subTextEl = document.getElementById("subText");
 
     function setLoadingState() {
       titleEl.textContent = "Verifying your email...";
       messageEl.textContent = "Please wait a moment.";
       spinnerEl.classList.remove("hidden");
       retryButtonEl.classList.add("hidden");
+      subTextEl.textContent = "You can close this page after verification is complete.";
     }
 
-    function setSuccessState() {
+    function setSuccessState(message) {
       titleEl.textContent = "Email verified successfully";
-      messageEl.textContent = "Your PuzzleVerse account has been activated. You can now return to the app and continue.";
+      messageEl.textContent =
+        message || "Your PuzzleVerse account has been activated. You can now return to the app.";
       spinnerEl.classList.add("hidden");
       retryButtonEl.classList.add("hidden");
+      subTextEl.textContent = "You may now reopen PuzzleVerse.";
     }
 
     function setErrorState(message) {
       titleEl.textContent = "Verification failed";
-      messageEl.textContent = message || "The verification link is invalid or has expired.";
+      messageEl.textContent =
+        message || "The verification link is invalid or has expired.";
       spinnerEl.classList.add("hidden");
       retryButtonEl.classList.remove("hidden");
+      subTextEl.textContent = "Please try again or request a new verification email.";
     }
 
     function getTokenFromUrl() {
@@ -160,36 +157,34 @@
       setLoadingState();
 
       try {
-        const response = await fetch(VERIFY_API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            token: token
-          })
+        const url = VERIFY_API_URL + "?token=" + encodeURIComponent(token);
+
+        const response = await fetch(url, {
+          method: "GET"
         });
+
+        const text = await response.text();
 
         let data = null;
         try {
-          data = await response.json();
+          data = JSON.parse(text);
         } catch (_) {
+          // nếu backend không trả JSON thì thôi
         }
 
         if (!response.ok) {
-          const errorMessage =
-            data?.message ||
-            `Verification failed. HTTP ${response.status}`;
-          setErrorState(errorMessage);
+          setErrorState(
+            data?.message || ("Verification failed. HTTP " + response.status)
+          );
           return;
         }
 
-        if (data?.success === false) {
+        if (data && data.success === false) {
           setErrorState(data.message || "Verification failed.");
           return;
         }
 
-        setSuccessState();
+        setSuccessState(data?.message);
       } catch (error) {
         setErrorState("Could not connect to the server. Please try again.");
       }
