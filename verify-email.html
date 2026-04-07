@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify Email - PuzzleVerse</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #5B6CFF, #8C92F0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 460px;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #5B6CFF;
+      margin-bottom: 8px;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 12px;
+    }
+
+    .message {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #6b7280;
+      margin-bottom: 20px;
+      white-space: pre-line;
+    }
+
+    .spinner {
+      width: 42px;
+      height: 42px;
+      margin: 0 auto 20px;
+      border: 4px solid #e5e7eb;
+      border-top: 4px solid #5B6CFF;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 10px;
+      border: none;
+      background: #5B6CFF;
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      opacity: 0.95;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .token-box {
+      margin-top: 18px;
+      padding: 10px 12px;
+      background: #f3f4f6;
+      border-radius: 10px;
+      font-size: 12px;
+      color: #6b7280;
+      word-break: break-all;
+      text-align: left;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">PuzzleVerse</div>
+    <div class="title" id="title">Verifying your email...</div>
+    <div class="spinner" id="spinner"></div>
+    <div class="message" id="message">Please wait a moment.</div>
+
+    <button id="retryButton" class="btn hidden">Try Again</button>
+
+    <div id="tokenBox" class="token-box hidden"></div>
+  </div>
+
+  <script>
+    const API_BASE_URL = "https://ugk2ue2jfe.execute-api.ap-southeast-1.amazonaws.com/PuzzleAPIs/";
+    const VERIFY_API_URL = API_BASE_URL + "/verification";
+
+    const titleEl = document.getElementById("title");
+    const messageEl = document.getElementById("message");
+    const spinnerEl = document.getElementById("spinner");
+    const retryButtonEl = document.getElementById("retryButton");
+    const tokenBoxEl = document.getElementById("tokenBox");
+
+    function setLoadingState() {
+      titleEl.textContent = "Verifying your email...";
+      messageEl.textContent = "Please wait a moment.";
+      spinnerEl.classList.remove("hidden");
+      retryButtonEl.classList.add("hidden");
+    }
+
+    function setSuccessState() {
+      titleEl.textContent = "Email verified successfully";
+      messageEl.textContent = "Your PuzzleVerse account has been activated. You can now return to the app and continue.";
+      spinnerEl.classList.add("hidden");
+      retryButtonEl.classList.add("hidden");
+    }
+
+    function setErrorState(message) {
+      titleEl.textContent = "Verification failed";
+      messageEl.textContent = message || "The verification link is invalid or has expired.";
+      spinnerEl.classList.add("hidden");
+      retryButtonEl.classList.remove("hidden");
+    }
+
+    function getTokenFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("token");
+    }
+
+    async function verifyEmail() {
+      const token = getTokenFromUrl();
+
+      if (!token) {
+        setErrorState("Token not found in the URL.");
+        return;
+      }
+
+      setLoadingState();
+
+      try {
+        const response = await fetch(VERIFY_API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            token: token
+          })
+        });
+
+        let data = null;
+        try {
+          data = await response.json();
+        } catch (_) {
+        }
+
+        if (!response.ok) {
+          const errorMessage =
+            data?.message ||
+            `Verification failed. HTTP ${response.status}`;
+          setErrorState(errorMessage);
+          return;
+        }
+
+        if (data?.success === false) {
+          setErrorState(data.message || "Verification failed.");
+          return;
+        }
+
+        setSuccessState();
+      } catch (error) {
+        setErrorState("Could not connect to the server. Please try again.");
+      }
+    }
+
+    retryButtonEl.addEventListener("click", verifyEmail);
+
+    verifyEmail();
+  </script>
+</body>
+</html>
