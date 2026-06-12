@@ -20,7 +20,6 @@
       --gold:#FFD471;
       --gold2:#FFE9A6;
       --surface:rgba(255,255,255,.08);
-      --surface2:rgba(255,255,255,.12);
       --line:rgba(255,255,255,.13);
       --shadow:0 28px 90px rgba(23,12,78,.38);
       --radius:24px;
@@ -109,7 +108,7 @@
 
     .hero{
       display:grid;
-      grid-template-columns:1.02fr .98fr;
+      grid-template-columns:1.12fr .88fr;
       gap:46px;
       align-items:center;
       margin-bottom:72px;
@@ -215,47 +214,41 @@
 
     .hero-visual{
       position:relative;
-      min-height:620px;
-      display:grid;
-      place-items:center;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:auto;
+      padding:12px 0;
     }
 
     .orbit{
       position:absolute;
-      width:520px;
-      height:520px;
+      width:min(520px,100%);
+      aspect-ratio:1;
       border-radius:999px;
       background:
         radial-gradient(circle, rgba(255,212,113,.12), transparent 48%),
         conic-gradient(from 210deg, transparent, rgba(255,255,255,.15), transparent 42%);
-      filter:blur(.2px);
       opacity:.9;
     }
 
-    .phone{
+    .hero-cover{
       position:relative;
       z-index:2;
-      width:min(370px, 92%);
-      padding:12px;
-      border-radius:34px;
-      background:linear-gradient(145deg, rgba(255,255,255,.28), rgba(255,255,255,.08));
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow:var(--shadow), 0 0 100px rgba(108,99,255,.32);
-      transform:rotate(2deg);
+      width:min(460px, 100%);
+      border-radius:28px;
+      padding:10px;
+      background:linear-gradient(145deg, rgba(255,255,255,.22), rgba(255,255,255,.08));
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow:var(--shadow), 0 0 100px rgba(108,99,255,.30);
     }
 
-    .phone-inner{
-      border-radius:26px;
-      padding:8px;
-      background:rgba(0,0,0,.18);
-      overflow:hidden;
-    }
-
-    .phone img{
+    .hero-cover img{
       width:100%;
-      aspect-ratio:9/18.5;
-      object-fit:cover;
+      height:auto;
+      display:block;
       border-radius:22px;
+      box-shadow:0 24px 70px rgba(0,0,0,.30);
     }
 
     .float{
@@ -278,9 +271,9 @@
       font-size:12px;
     }
 
-    .float.one{left:6px;top:92px}
-    .float.two{right:0;bottom:128px}
-    .float.three{left:22px;bottom:58px;color:#2d215a;background:linear-gradient(180deg,var(--gold2),var(--gold));}
+    .float.one{left:0;top:12%}
+    .float.two{right:0;bottom:20%}
+    .float.three{left:10px;bottom:5%;color:#2d215a;background:linear-gradient(180deg,var(--gold2),var(--gold));}
 
     .section{
       margin-bottom:42px;
@@ -340,7 +333,6 @@
     }
 
     .game-shot{
-      height:390px;
       padding:12px;
       background:
         radial-gradient(circle at 50% 0%, rgba(255,212,113,.12), transparent 38%),
@@ -349,7 +341,7 @@
 
     .game-shot img{
       width:100%;
-      height:100%;
+      height:auto;
       object-fit:contain;
       border-radius:18px;
     }
@@ -520,11 +512,11 @@
     @media (max-width:1000px){
       .hero{
         grid-template-columns:1fr;
-        gap:10px;
+        gap:28px;
       }
-      .hero-visual{min-height:560px}
       .games{grid-template-columns:repeat(2,minmax(0,1fr))}
       .feature-grid{grid-template-columns:1fr}
+      .hero-cover{width:min(420px,100%)}
     }
 
     @media (max-width:680px){
@@ -532,9 +524,7 @@
       .nav-links{display:none}
       .hero{margin-bottom:56px}
       .quick{grid-template-columns:1fr}
-      .hero-visual{min-height:500px}
       .float{display:none}
-      .phone{transform:none}
       .section-head{display:block}
       .section-head p{margin-top:12px}
       .games{
@@ -606,10 +596,8 @@
         <div class="float two">Daily Streak<small>Come back every day</small></div>
         <div class="float three">VIP Rewards<small>More hints, more fun</small></div>
 
-        <div class="phone">
-          <div class="phone-inner">
-            <img src="assets/cover.jpg" alt="PuzzleVerse gameplay cover">
-          </div>
+        <div class="hero-cover">
+          <img src="assets/cover.jpg" alt="PuzzleVerse cover">
         </div>
       </div>
     </section>
