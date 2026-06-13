@@ -235,7 +235,7 @@
     .hero-cover{
       position:relative;
       z-index:2;
-      width:min(460px, 100%);
+      width:min(340px, 100%);
       border-radius:28px;
       padding:10px;
       background:linear-gradient(145deg, rgba(255,255,255,.22), rgba(255,255,255,.08));
@@ -250,30 +250,6 @@
       border-radius:22px;
       box-shadow:0 24px 70px rgba(0,0,0,.30);
     }
-
-    .float{
-      position:absolute;
-      z-index:3;
-      border-radius:18px;
-      padding:14px 16px;
-      background:rgba(255,255,255,.12);
-      border:1px solid rgba(255,255,255,.16);
-      backdrop-filter:blur(14px);
-      box-shadow:0 18px 50px rgba(17,10,62,.25);
-      font-weight:800;
-    }
-
-    .float small{
-      display:block;
-      margin-top:4px;
-      color:rgba(255,255,255,.62);
-      font-weight:700;
-      font-size:12px;
-    }
-
-    .float.one{left:0;top:12%}
-    .float.two{right:0;bottom:20%}
-    .float.three{left:10px;bottom:5%;color:#2d215a;background:linear-gradient(180deg,var(--gold2),var(--gold));}
 
     .section{
       margin-bottom:42px;
@@ -364,10 +340,157 @@
       font-weight:500;
     }
 
+    .feature-showcase{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:20px;
+    }
+
+    .showcase-card{
+      padding:22px;
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 22px 70px rgba(18,8,72,.18);
+    }
+
+    .showcase-shot{
+      padding:10px;
+      border-radius:22px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,212,113,.16), transparent 38%),
+        rgba(0,0,0,.16);
+    }
+
+    .showcase-shot img{
+      width:100%;
+      height:auto;
+      border-radius:16px;
+      box-shadow:0 18px 48px rgba(0,0,0,.25);
+    }
+
+    .showcase-copy h3{
+      margin:18px 0 10px;
+      font-size:22px;
+      line-height:1.14;
+      letter-spacing:-1px;
+    }
+
+    .showcase-copy p{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.65;
+      font-weight:500;
+    }
+
+    .game-groups{
+      display:grid;
+      gap:22px;
+    }
+
+    .game-group{
+      display:grid;
+      grid-template-columns:.9fr 1.1fr;
+      gap:26px;
+      align-items:center;
+      padding:24px;
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 22px 70px rgba(18,8,72,.18);
+      overflow:hidden;
+    }
+
+    .game-group:nth-child(even){
+      grid-template-columns:1.1fr .9fr;
+    }
+
+    .game-group:nth-child(even) .game-group-copy{
+      order:2;
+    }
+
+    .game-eyebrow{
+      display:inline-flex;
+      align-items:center;
+      min-height:34px;
+      padding:0 12px;
+      border-radius:999px;
+      background:rgba(255,212,113,.14);
+      color:var(--gold);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      margin-bottom:14px;
+    }
+
+    .game-group-copy h3{
+      margin:0 0 12px;
+      font-size:clamp(26px,3vw,38px);
+      line-height:1.06;
+      letter-spacing:-1.2px;
+    }
+
+    .game-group-copy p{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.7;
+      font-weight:500;
+    }
+
+    .game-tags{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .game-tags span{
+      padding:9px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      color:rgba(255,255,255,.84);
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .game-group-shots{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+      align-items:start;
+    }
+
+    .game-mini-shot{
+      padding:9px;
+      border-radius:22px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,212,113,.15), transparent 40%),
+        rgba(0,0,0,.16);
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    .game-mini-shot:nth-child(2){
+      margin-top:34px;
+    }
+
+    .game-mini-shot img{
+      width:100%;
+      height:auto;
+      border-radius:16px;
+      box-shadow:0 18px 48px rgba(0,0,0,.25);
+    }
+
     .feature-grid{
       display:grid;
       grid-template-columns:1.1fr .9fr;
       gap:18px;
+    }
+
+    .feature-summary{
+      margin-top:42px;
     }
 
     .feature-panel{
@@ -515,8 +638,16 @@
         gap:28px;
       }
       .games{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .feature-showcase{grid-template-columns:1fr}
+      .game-group,
+      .game-group:nth-child(even){
+        grid-template-columns:1fr;
+      }
+      .game-group:nth-child(even) .game-group-copy{
+        order:0;
+      }
       .feature-grid{grid-template-columns:1fr}
-      .hero-cover{width:min(420px,100%)}
+      .hero-cover{width:min(320px,100%)}
     }
 
     @media (max-width:680px){
@@ -524,7 +655,6 @@
       .nav-links{display:none}
       .hero{margin-bottom:56px}
       .quick{grid-template-columns:1fr}
-      .float{display:none}
       .section-head{display:block}
       .section-head p{margin-top:12px}
       .games{
@@ -537,6 +667,12 @@
         min-width:78%;
         scroll-snap-align:start;
       }
+      .showcase-card{padding:16px}
+      .showcase-copy p{font-size:15px}
+      .game-group{padding:16px}
+      .game-group-shots{gap:10px}
+      .game-mini-shot{padding:7px;border-radius:18px}
+      .game-mini-shot:nth-child(2){margin-top:20px}
       .quote{grid-template-columns:1fr}
       h1{letter-spacing:-2px}
     }
@@ -547,7 +683,7 @@
   <main class="page">
     <header class="nav">
       <a class="brand" href="#">
-        <span class="logo"><img src="assets/icon10.webp" alt="PuzzleVerse icon"></span>
+        <span class="logo"><img src="assets/ios_icon.png" alt="PuzzleVerse icon"></span>
         <span>PuzzleVerse</span>
       </a>
 
@@ -592,9 +728,6 @@
 
       <div class="hero-visual">
         <div class="orbit"></div>
-        <div class="float one">Logic + Focus<small>Train smarter</small></div>
-        <div class="float two">Daily Streak<small>Come back every day</small></div>
-        <div class="float three">VIP Rewards<small>More hints, more fun</small></div>
 
         <div class="hero-cover">
           <img src="assets/cover.jpg" alt="PuzzleVerse cover">
@@ -602,63 +735,60 @@
       </div>
     </section>
 
-    <section class="section" id="games">
+    <section class="section" id="features">
       <div class="section-head">
         <div>
-          <div class="section-kicker">Featured games</div>
-          <h2>Play smart. Think fast.</h2>
+          <div class="section-kicker">Core features</div>
+          <h2>Everything you need for a sharper daily puzzle habit.</h2>
         </div>
         <p>
-          Replace these screenshots with your latest App Store / Play Store images.
-          The layout is built to make each game feel like a premium card.
+          PuzzleVerse blends quick brain games, weekly competition, and personal
+          progress tracking into one polished puzzle experience.
         </p>
       </div>
 
-      <div class="games">
-        <article class="game-card">
-          <div class="game-shot">
-            <img src="assets/screen1.png" alt="PuzzleVerse screenshot 1">
+      <div class="feature-showcase">
+        <article class="showcase-card">
+          <div class="showcase-shot">
+            <img src="assets/s1.png" alt="PuzzleVerse puzzle collection screen">
           </div>
-          <div class="game-info">
-            <h3>Logic Puzzles</h3>
-            <p>Train reasoning with clean, focused puzzle boards.</p>
-          </div>
-        </article>
-
-        <article class="game-card">
-          <div class="game-shot">
-            <img src="assets/screen2.png" alt="PuzzleVerse screenshot 2">
-          </div>
-          <div class="game-info">
-            <h3>Quick Challenges</h3>
-            <p>Short sessions designed for focus and momentum.</p>
+          <div class="showcase-copy">
+            <h3>20+ popular puzzle games</h3>
+            <p>
+              A rich mix of logic, memory, and reflex challenges, from classics
+              like Sudoku and Shikaku to fast number, path, and reaction puzzles.
+            </p>
           </div>
         </article>
 
-        <article class="game-card">
-          <div class="game-shot">
-            <img src="assets/screen3.png" alt="PuzzleVerse screenshot 3">
+        <article class="showcase-card">
+          <div class="showcase-shot">
+            <img src="assets/s2.png" alt="PuzzleVerse weekly leaderboard screen">
           </div>
-          <div class="game-info">
-            <h3>Rewards & Streaks</h3>
-            <p>Build habits with progress, bonuses, and daily goals.</p>
+          <div class="showcase-copy">
+            <h3>Weekly leaderboards</h3>
+            <p>
+              Compete with hundreds of players around the world, climb the weekly
+              rankings, and turn every puzzle run into a friendly global challenge.
+            </p>
           </div>
         </article>
 
-        <article class="game-card">
-          <div class="game-shot">
-            <img src="assets/screen4.png" alt="PuzzleVerse screenshot 4">
+        <article class="showcase-card">
+          <div class="showcase-shot">
+            <img src="assets/s3.png" alt="PuzzleVerse personal progress screen">
           </div>
-          <div class="game-info">
-            <h3>Relaxing Gameplay</h3>
-            <p>Beautiful, calm visuals for a smoother puzzle experience.</p>
+          <div class="showcase-copy">
+            <h3>Personal insights and achievements</h3>
+            <p>
+              Track your strengths, earn titles, cups, and medals, and see your
+              progress clearly so every day feels a little more rewarding.
+            </p>
           </div>
         </article>
       </div>
-    </section>
 
-    <section class="section" id="features">
-      <div class="feature-grid">
+      <div class="feature-grid feature-summary">
         <div class="feature-panel">
           <div class="section-kicker">Why PuzzleVerse</div>
           <h2>Built for daily brain training.</h2>
@@ -723,6 +853,146 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="section" id="games">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Game collection</div>
+          <h2>Different puzzle styles for different kinds of thinking.</h2>
+        </div>
+        <p>
+          Explore logic challenges, path-building puzzles, and fast reflex games,
+          each designed to train a different mental skill.
+        </p>
+      </div>
+
+      <div class="game-groups">
+        <article class="game-group">
+          <div class="game-group-copy">
+            <div class="game-eyebrow">Logic games</div>
+            <h3>Build sharper reasoning with CrossMath and Math.</h3>
+            <p>
+              Solve number patterns, combine operations, and find the cleanest path
+              to each answer. These games reward calm focus, accuracy, and smart deduction.
+            </p>
+            <div class="game-tags">
+              <span>CrossMath</span>
+              <span>Math</span>
+              <span>Calculation</span>
+            </div>
+          </div>
+
+          <div class="game-group-shots">
+            <div class="game-mini-shot">
+              <img src="assets/s4.png" alt="CrossMath logic puzzle screen">
+            </div>
+            <div class="game-mini-shot">
+              <img src="assets/s5.png" alt="Math logic puzzle screen">
+            </div>
+          </div>
+        </article>
+
+        <article class="game-group">
+          <div class="game-group-copy">
+            <div class="game-eyebrow">Path games</div>
+            <h3>Plan the route, connect the board, and keep every move tidy.</h3>
+            <p>
+              Pipes and Flow Free turn each board into a satisfying routing challenge.
+              Think ahead, avoid dead ends, and complete elegant paths across the grid.
+            </p>
+            <div class="game-tags">
+              <span>Pipes</span>
+              <span>Flow Free</span>
+              <span>Planning</span>
+            </div>
+          </div>
+
+          <div class="game-group-shots">
+            <div class="game-mini-shot">
+              <img src="assets/s6.png" alt="Pipes path puzzle screen">
+            </div>
+            <div class="game-mini-shot">
+              <img src="assets/s7.png" alt="Flow Free path puzzle screen">
+            </div>
+          </div>
+        </article>
+
+        <article class="game-group">
+          <div class="game-group-copy">
+            <div class="game-eyebrow">Reflex games</div>
+            <h3>React fast, spot the difference, and chase a cleaner score.</h3>
+            <p>
+              Cars and Odd One Out are quick, energetic challenges for attention and
+              reaction speed. Perfect for short sessions when you want instant momentum.
+            </p>
+            <div class="game-tags">
+              <span>Cars</span>
+              <span>Odd One Out</span>
+              <span>Reaction</span>
+            </div>
+          </div>
+
+          <div class="game-group-shots">
+            <div class="game-mini-shot">
+              <img src="assets/s8.png" alt="Cars reflex game screen">
+            </div>
+            <div class="game-mini-shot">
+              <img src="assets/s9.png" alt="Odd One Out reflex game screen">
+            </div>
+          </div>
+        </article>
+
+        <article class="game-group">
+          <div class="game-group-copy">
+            <div class="game-eyebrow">Memory games</div>
+            <h3>Train recall, attention, and pattern recognition.</h3>
+            <p>
+              Memory challenges help you remember positions, spot familiar patterns,
+              and stay focused under light pressure. Simple to start, satisfying to master.
+            </p>
+            <div class="game-tags">
+              <span>Memory</span>
+              <span>Recall</span>
+              <span>Focus</span>
+            </div>
+          </div>
+
+          <div class="game-group-shots">
+            <div class="game-mini-shot">
+              <img src="assets/s10.png" alt="PuzzleVerse memory game screen">
+            </div>
+            <div class="game-mini-shot">
+              <img src="assets/s11.png" alt="PuzzleVerse memory challenge screen">
+            </div>
+          </div>
+        </article>
+
+        <article class="game-group">
+          <div class="game-group-copy">
+            <div class="game-eyebrow">Strategy games</div>
+            <h3>Think ahead with 2048 and Block Blast.</h3>
+            <p>
+              Build long-term plans, manage space carefully, and make every move count.
+              These strategy puzzles reward patience, foresight, and clever board control.
+            </p>
+            <div class="game-tags">
+              <span>2048</span>
+              <span>Block Blast</span>
+              <span>Strategy</span>
+            </div>
+          </div>
+
+          <div class="game-group-shots">
+            <div class="game-mini-shot">
+              <img src="assets/s12.png" alt="2048 strategy puzzle screen">
+            </div>
+            <div class="game-mini-shot">
+              <img src="assets/s13.png" alt="Block Blast strategy puzzle screen">
+            </div>
+          </div>
+        </article>
       </div>
 
       <div class="quote">
