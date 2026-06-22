@@ -14,9 +14,11 @@
       --ink:#ffffff;
       --muted:rgba(255,255,255,.74);
       --muted2:rgba(255,255,255,.56);
-      --deep:#24125f;
-      --violet:#6C63FF;
-      --violet2:#8B5CF6;
+      --deep:#121A5F;
+      --violet:#5B6CFF;
+      --violet-rgb:91,108,255;
+      --violet2:#5C6CF6;
+      --violet2-rgb:92,108,246;
       --gold:#FFD471;
       --gold2:#FFE9A6;
       --surface:rgba(255,255,255,.08);
@@ -33,9 +35,9 @@
       color:var(--ink);
       background:
         radial-gradient(circle at 10% 0%, rgba(255,212,113,.18), transparent 26%),
-        radial-gradient(circle at 90% 10%, rgba(139,92,246,.35), transparent 30%),
-        radial-gradient(circle at 55% 90%, rgba(108,99,255,.28), transparent 34%),
-        linear-gradient(135deg,#211052 0%,#34208a 42%,#5b4df3 100%);
+        radial-gradient(circle at 90% 10%, rgba(var(--violet2-rgb),.35), transparent 30%),
+        radial-gradient(circle at 55% 90%, rgba(var(--violet-rgb),.28), transparent 34%),
+        linear-gradient(135deg,#101752 0%,#202B8A 42%,var(--violet) 100%);
       min-height:100vh;
       overflow-x:hidden;
     }
@@ -176,7 +178,7 @@
 
     .btn:hover{transform:translateY(-2px)}
     .btn-primary{
-      color:#24125f;
+      color:var(--deep);
       background:linear-gradient(180deg,var(--gold2),var(--gold));
       box-shadow:0 16px 36px rgba(255,212,113,.28);
     }
@@ -240,7 +242,7 @@
       padding:10px;
       background:linear-gradient(145deg, rgba(255,255,255,.22), rgba(255,255,255,.08));
       border:1px solid rgba(255,255,255,.16);
-      box-shadow:var(--shadow), 0 0 100px rgba(108,99,255,.30);
+      box-shadow:var(--shadow), 0 0 100px rgba(var(--violet-rgb),.30);
     }
 
     .hero-cover img{
@@ -606,9 +608,15 @@
       padding:0 22px;
       border-radius:16px;
       background:#fff;
-      color:#24125f;
+      color:var(--deep);
       font-weight:900;
       white-space:nowrap;
+    }
+
+    .quote-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
     }
 
     footer{
@@ -704,8 +712,11 @@
         </p>
 
         <div class="cta">
-          <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.vietcv.puzzleverse" target="_blank" rel="noopener noreferrer">
+          <a class="btn btn-primary" data-play-store-link href="https://play.google.com/store/apps/details?id=com.vietcv.puzzleverse" target="_blank" rel="noopener noreferrer">
             Get it on Android
+          </a>
+          <a class="btn btn-ghost" data-app-store-link href="https://apps.apple.com/app/id6778448927" target="_blank" rel="noopener noreferrer">
+            Download on iOS
           </a>
           <a class="btn btn-ghost" href="#games">Explore games</a>
         </div>
@@ -1000,9 +1011,14 @@
           <div class="section-kicker">Start playing</div>
           <h2>Challenge your mind in a more beautiful way.</h2>
         </div>
-        <a class="store-pill" href="https://play.google.com/store/apps/details?id=com.vietcv.puzzleVerse" target="_blank" rel="noopener noreferrer">
-          Download PuzzleVerse
-        </a>
+        <div class="quote-actions">
+          <a class="store-pill" data-play-store-link href="https://play.google.com/store/apps/details?id=com.vietcv.puzzleverse" target="_blank" rel="noopener noreferrer">
+            Get it on Android
+          </a>
+          <a class="store-pill" data-app-store-link href="https://apps.apple.com/app/id6778448927" target="_blank" rel="noopener noreferrer">
+            Download on iOS
+          </a>
+        </div>
       </div>
     </section>
 
@@ -1015,5 +1031,18 @@
       </div>
     </footer>
   </main>
+
+  <script>
+    // Single source of truth for the store links — update these to change every CTA on the page.
+    const PLAY_STORE_PACKAGE_ID = "com.vietcv.puzzleverse";
+    const APP_STORE_URL = "https://apps.apple.com/app/id6778448927";
+
+    document.querySelectorAll("[data-play-store-link]").forEach((link) => {
+      link.href = `https://play.google.com/store/apps/details?id=${PLAY_STORE_PACKAGE_ID}`;
+    });
+    document.querySelectorAll("[data-app-store-link]").forEach((link) => {
+      link.href = APP_STORE_URL;
+    });
+  </script>
 </body>
 </html>

@@ -12,8 +12,11 @@
       --ink: #ffffff;
       --muted: rgba(255,255,255,.72);
       --muted2: rgba(255,255,255,.55);
-      --deep: #24125f;
-      --violet: #6C63FF;
+      --deep: #121A5F;
+      --violet: #5B6CFF;
+      --violet-rgb: 91,108,255;
+      --violet2: #5C6CF6;
+      --violet2-rgb: 92,108,246;
       --gold: #FFD471;
       --gold2: #FFE9A6;
       --surface: rgba(255,255,255,.08);
@@ -30,9 +33,9 @@
       font-family: Manrope, Arial, Helvetica, sans-serif;
       background:
         radial-gradient(circle at 10% 0%, rgba(255,212,113,.18), transparent 26%),
-        radial-gradient(circle at 90% 10%, rgba(139,92,246,.35), transparent 30%),
-        radial-gradient(circle at 55% 90%, rgba(108,99,255,.28), transparent 34%),
-        linear-gradient(135deg,#211052 0%,#34208a 42%,#5b4df3 100%);
+        radial-gradient(circle at 90% 10%, rgba(var(--violet2-rgb),.35), transparent 30%),
+        radial-gradient(circle at 55% 90%, rgba(var(--violet-rgb),.28), transparent 34%),
+        linear-gradient(135deg,#101752 0%,#202B8A 42%,var(--violet) 100%);
       color: var(--ink);
       line-height: 1.65;
     }

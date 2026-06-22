@@ -11,7 +11,11 @@
     :root {
       --ink: #ffffff;
       --muted: rgba(255,255,255,.72);
-      --deep: #24125f;
+      --deep: #121A5F;
+      --violet: #5B6CFF;
+      --violet-rgb: 91,108,255;
+      --violet2: #5C6CF6;
+      --violet2-rgb: 92,108,246;
       --gold: #FFD471;
       --gold2: #FFE9A6;
       --line: rgba(255,255,255,.13);
@@ -29,9 +33,9 @@
       color: var(--ink);
       background:
         radial-gradient(circle at 10% 0%, rgba(255,212,113,.18), transparent 26%),
-        radial-gradient(circle at 90% 10%, rgba(139,92,246,.35), transparent 30%),
-        radial-gradient(circle at 55% 90%, rgba(108,99,255,.28), transparent 34%),
-        linear-gradient(135deg,#211052 0%,#34208a 42%,#5b4df3 100%);
+        radial-gradient(circle at 90% 10%, rgba(var(--violet2-rgb),.35), transparent 30%),
+        radial-gradient(circle at 55% 90%, rgba(var(--violet-rgb),.28), transparent 34%),
+        linear-gradient(135deg,#101752 0%,#202B8A 42%,var(--violet) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
