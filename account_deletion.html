@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PuzzleVerse Account &amp; Data Deletion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #ffffff;
+      --muted: rgba(255,255,255,.72);
+      --muted2: rgba(255,255,255,.55);
+      --deep: #121A5F;
+      --violet: #5B6CFF;
+      --violet-rgb: 91,108,255;
+      --violet2: #5C6CF6;
+      --violet2-rgb: 92,108,246;
+      --gold: #FFD471;
+      --gold2: #FFE9A6;
+      --surface: rgba(255,255,255,.08);
+      --line: rgba(255,255,255,.13);
+      --shadow: 0 28px 90px rgba(23,12,78,.34);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Manrope, Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255,212,113,.18), transparent 26%),
+        radial-gradient(circle at 90% 10%, rgba(var(--violet2-rgb),.35), transparent 30%),
+        radial-gradient(circle at 55% 90%, rgba(var(--violet-rgb),.28), transparent 34%),
+        linear-gradient(135deg,#101752 0%,#202B8A 42%,var(--violet) 100%);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    body:before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(115deg, rgba(255,255,255,.075), transparent 22%, transparent 75%, rgba(255,255,255,.05)),
+        radial-gradient(circle at 50% 50%, transparent 0, transparent 55%, rgba(0,0,0,.16) 100%);
+      z-index: -1;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .wrap {
+      width: min(960px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 22px 0 60px;
+    }
+
+    .nav {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 34px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -.35px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 14px 40px rgba(0,0,0,.24);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: rgba(255,255,255,.76);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .nav-links a:hover {
+      background: rgba(255,255,255,.08);
+      color: #fff;
+    }
+
+    .card {
+      background: rgba(255,255,255,.08);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      color: var(--gold);
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.06;
+      letter-spacing: -1.5px;
+    }
+
+    .updated {
+      color: var(--muted);
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+
+    h2 {
+      margin-top: 32px;
+      margin-bottom: 12px;
+      font-size: 22px;
+      color: #fff;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 8px;
+    }
+
+    h3 {
+      margin-top: 20px;
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+
+    p { margin: 10px 0; }
+
+    ul, ol {
+      margin: 8px 0 12px 22px;
+      padding: 0;
+    }
+
+    li { margin: 6px 0; }
+
+    .contact-box {
+      background: rgba(255,255,255,.07);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 10px;
+    }
+
+    .notice {
+      background: rgba(255,212,113,.10);
+      border: 1px solid rgba(255,212,113,.34);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 10px;
+    }
+
+    a {
+      color: var(--gold2);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      margin-top: 28px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .page-footer {
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: var(--muted2);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a { color: rgba(255,255,255,.78); }
+
+    @media (max-width: 640px) {
+      .wrap { width: min(100% - 28px, 960px); }
+      .nav-links { display: none; }
+      .card {
+        padding: 22px;
+        border-radius: 18px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="nav">
+      <a class="brand" href="index.html">
+        <span class="logo"><img src="assets/ios_icon.png" alt="PuzzleVerse icon"></span>
+        <span>PuzzleVerse</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html#games">Games</a>
+        <a href="index.html#features">Features</a>
+        <a href="support.html">Support</a>
+      </nav>
+    </header>
+
+    <div class="card">
+      <h1>Account &amp; Data Deletion</h1>
+      <div class="updated">Last updated: 05/08/2026</div>
+
+      <p>
+        This page explains how to delete your <strong>PuzzleVerse</strong> account and the data
+        associated with it. PuzzleVerse is developed and published by <strong>CoderViet</strong>.
+      </p>
+      <p>
+        <strong>App Name:</strong> PuzzleVerse<br>
+        <strong>Developer (Publisher):</strong> CoderViet<br>
+        <strong>Contact Email:</strong> <a href="mailto:vietcv88@gmail.com">vietcv88@gmail.com</a>
+      </p>
+
+      <h2>1. Delete your account inside the app</h2>
+      <p>This is the fastest way and takes effect immediately:</p>
+      <ol>
+        <li>Open PuzzleVerse.</li>
+        <li>Go to <strong>Settings</strong>.</li>
+        <li>Tap <strong>Delete account</strong>.</li>
+        <li>Wait for the short confirmation delay, then tap the delete button to confirm.</li>
+      </ol>
+      <p>
+        Your sign-in account is removed straight away and you are signed out of the app.
+      </p>
+
+      <h2>2. If you have already uninstalled the app</h2>
+      <p>
+        Send an email to <a href="mailto:vietcv88@gmail.com">vietcv88@gmail.com</a> with the subject
+        <strong>"Delete my PuzzleVerse account"</strong>. To let us find the right account, please
+        either send the request from the email address you registered with, or include your in-game
+        display name.
+      </p>
+      <p>
+        We verify the request and complete the deletion within <strong>30 days</strong>, and we reply
+        by email once it is done.
+      </p>
+
+      <h2>3. What is deleted</h2>
+      <p>The following data is deleted and cannot be recovered:</p>
+      <ul>
+        <li>Your sign-in account with our authentication provider (Firebase Authentication)</li>
+        <li>Your email address, including any pending email change</li>
+        <li>The link between your device's guest session and the account</li>
+        <li>Your display name, which is replaced with "Deleted User"</li>
+      </ul>
+
+      <h2>4. What is kept, and why</h2>
+      <p>
+        After deletion, the records below are no longer connected to your name, email address or
+        sign-in account. They are kept only in this de-identified form:
+      </p>
+      <ul>
+        <li>
+          <strong>Gameplay statistics and leaderboard entries</strong> — kept so that scores,
+          rankings and daily challenge results stay consistent for other players. Any entry of yours
+          that remains visible is shown as "Deleted User".
+        </li>
+        <li>
+          <strong>Transaction records for in-app purchases</strong> — kept to meet accounting and
+          tax obligations and to prevent purchase fraud and abuse. We never store payment card
+          details or billing information.
+        </li>
+      </ul>
+      <p>
+        We do not use this de-identified data to contact you or to build any profile about you. For
+        more detail on what we collect in the first place, see our
+        <a href="privacy_policy.html">Privacy Policy</a>.
+      </p>
+
+      <h2>5. Please read before you delete</h2>
+      <div class="notice">
+        <p><strong>Deletion is permanent and cannot be undone.</strong></p>
+        <ul>
+          <li>
+            Coins, diamonds, hints, streaks, achievements and VIP status are lost and cannot be
+            restored, including items you paid for.
+          </li>
+          <li>
+            <strong>An active subscription is not cancelled by deleting your account.</strong>
+            Subscriptions are billed by the app store, so you must cancel it yourself at
+            <a href="https://play.google.com/store/account/subscriptions">Google Play subscriptions</a>
+            or
+            <a href="https://apps.apple.com/account/subscriptions">App Store subscriptions</a>,
+            otherwise billing continues.
+          </li>
+          <li>
+            Creating a new account later starts from zero; previous progress cannot be transferred
+            back.
+          </li>
+        </ul>
+      </div>
+
+      <h2>6. Contact us</h2>
+      <div class="contact-box">
+        <p><strong>CoderViet</strong></p>
+        <p>Email: <a href="mailto:vietcv88@gmail.com">vietcv88@gmail.com</a></p>
+      </div>
+
+      <div class="footer">&copy; 2026 CoderViet. All rights reserved.</div>
+    </div>
+
+    <footer class="page-footer">
+      <div>&copy; 2026 PuzzleVerse. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="support.html">Support</a>
+        <a href="privacy_policy.html">Privacy Policy</a>
+        <a href="terms_of_service.html">Terms of Service</a>
+        <a href="account_deletion.html">Delete Account</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
